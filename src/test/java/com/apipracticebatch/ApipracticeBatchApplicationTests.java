@@ -14,11 +14,13 @@ import java.util.List;
 
 @SpringBootTest
 class ApipracticeBatchApplicationTests {
+@Autowired
+ListService listService;
 
     @Autowired
     ListMapper listMapper;
 
-    @Scheduled(cron = "* 40 5 * * ?")
+    @Scheduled(cron = "* * * * * ?")
     public void create_csv(){
         List<ListDTO> listDTOS = listMapper.read_data();
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -45,7 +47,7 @@ class ApipracticeBatchApplicationTests {
 
     @Test
     void contextLoads() {
-        create_csv();
+        listService.create_csv();
 
     }
 

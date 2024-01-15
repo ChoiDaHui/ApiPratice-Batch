@@ -24,12 +24,23 @@ public class ListService {
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "MS949");
                 BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
         ){
+            long english = listDTOS.stream().filter(listDTO -> {
+                return listDTO.getLanguage().contains("영어");
+            }).count();
 
-            bufferedWriter.write("행이름\n");
-            for(ListDTO listDTO : listDTOS){
-                bufferedWriter.write(listDTO.getLanguage());
-                bufferedWriter.write("\n");
-            }
+            long japen = listDTOS.stream().filter(listDTO -> {
+                return listDTO.getLanguage().contains("일본어");
+            }).count();
+
+            long china = listDTOS.stream().filter(listDTO -> {
+                return listDTO.getLanguage().contains("중국어");
+            }).count();
+
+            bufferedWriter.write("외국어,총조회수\n");
+            bufferedWriter.write("영어," + english+"\n");
+            bufferedWriter.write("일본어," + japen + "\n");
+            bufferedWriter.write("중국어," + china + "\n");
+
             System.out.println("파일 생성완료");
         } catch (Exception e){
             System.out.println("오류 발생");
